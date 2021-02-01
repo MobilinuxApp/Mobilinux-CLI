@@ -91,8 +91,8 @@ perform_config()
     echo "Downloading the wrapper script..."
     echo ""
     rm -rf $PREFIX/bin/startxfce-debian
-    curl -O --retry 5 --output-dir $PREFIX/bin/ https://raw.githubusercontent.com/WMCB-Tech/debdroid-de-installer/main/bin/startxfce
-    chmod 777 $PREFIX/bin/startxfce
+    curl -O --retry 5 --output-dir $PREFIX/bin/ https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Debian/Scripts/DesktopEnv/XFCE/bin/startxfce-debian
+    chmod 777 $PREFIX/bin/startxfce-debian
     echo ""
     echo "Finalizing..."
     finalize
