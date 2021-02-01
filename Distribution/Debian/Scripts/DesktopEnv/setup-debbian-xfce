@@ -1,0 +1,110 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+### A Mobilinux Component.
+### This will prepend all the functions needed for installation
+
+set -e -u
+
+### Check if Network Connection is present
+if ping -c 1 8.8.8.8 >/dev/null 2>&1; then
+    true
+else
+    echo "Cannot continue the installation. Please Check your network connection"
+    exit 2
+fi
+
+### In case the script run inside the distribution. check for common hiarchery files
+if [ ! -e /usr/lib/.libdone.so.9 ]; then
+    true
+else
+    echo "We detected that you are running it inside the distro: incorrect syntax"
+    exit 2
+fi
+
+if [ ! -e /usr/ ]; then
+    true
+else
+    echo "We detected that you are running it inside the distro: incorrect syntax"
+    exit 2
+fi
+
+### At this point check for curl command. if not installed. ask a user to install it then abort
+if which curl >/dev/null 2>&1; then
+    true
+else
+    echo "Cannot find command 'curl'. Please install it by typing 'pkg in curl'"
+    pkg install curl
+    exit 2
+fi
+
+### Next is to check if debian.deb is installed
+if which debian >/dev/null 2>&1; then
+    true
+else
+    echo "Cannot install debian.deb. Please Install it"
+    exit 2
+fi
+
+### This time. Check if Debian is installed
+if debian -- true >/dev/null 2>&1; then
+    true
+else
+    echo "It seems Debian isn't installed. Please Install it"
+    exit 2
+fi
+
+### Other Distributions isn't supported yet. check if apt is present
+if debian -- which apt >/dev/null 2>&1; then
+    true
+else
+    echo "It seems you're using a custom distributions which is not supported yet. please use Debian Instead"
+    exit 2
+fi
+
+### Function Time
+install_xfce() {
+    if ! debian -- which startxfce4 >/dev/null 2>&1; then
+        echo "Installing Xfce4 base package... "
+        debian -- sudo apt install xfce4 -yy
+        dpkg --configure -a
+        setup_tigervnc
+    else
+        echo "Found xfce package. Skipping Install and Performing an autoconfiguration to tigervnc"
+        setup_tigervnc
+    fi
+}
+
+setup_tigervnc() {
+    if ! debian -- which tigervncserver > /dev/null 2>&1; then
+        echo "Installing tigervnc package"
+        debian -- sudo apt install tigervnc-standalone-server -yy
+        perform_config
+    else
+        echo "Found tigervnc package. Skipping Install and Performing an final autoconfiguration"
+        perform_config
+    fi
+}
+
+perform_config()
+{ 
+    echo ""
+    echo "Downloading the wrapper script..."
+    echo ""
+    rm -rf $PREFIX/bin/startxfce-debian
+    curl -O --retry 5 --output-dir $PREFIX/bin/ https://raw.githubusercontent.com/WMCB-Tech/debdroid-de-installer/main/bin/startxfce
+    chmod 777 $PREFIX/bin/startxfce
+    echo ""
+    echo "Finalizing..."
+    finalize
+}
+
+finalize() {
+    echo "XFCE successfully installed. All has gone well"
+    echo "To start xfce type:"
+    echo ""
+    echo "startxfce-debian"
+    echo ""
+    exit 0
+}
+
+install_xfce
