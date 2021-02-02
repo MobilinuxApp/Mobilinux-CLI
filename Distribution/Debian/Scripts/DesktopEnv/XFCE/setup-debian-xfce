@@ -83,7 +83,6 @@ install_xfce() {
     fi
     # remove the temp file
     rm -f temp
-
     setup_tigervnc
   else
     echo "Found xfce package. Skipping Install and Performing an autoconfiguration to tigervnc"
@@ -122,5 +121,4 @@ finalize() {
   echo ""
   exit 0
 }
-
 install_xfce
