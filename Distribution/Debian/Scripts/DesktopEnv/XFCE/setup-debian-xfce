@@ -53,12 +53,12 @@ else
 fi
 
 ### This time. Check if Debian is installed
-if debian -- true >/dev/null 2>&1; then
-  true
-else
-  echo "${RED}${BOLD}It seems Debian isn't installed. Please Install it first.${NOATTR}"
-  exit 2
-fi
+##if [ ! -e /data/data/com.termux/files/usr/share/debian/rootfs/etc/os-release ]; then
+##  true
+##else
+##  echo "${RED}${BOLD}It seems Debian isn't installed. Please Install it first.${NOATTR}"
+##  exit 2
+##fi
 
 ### Other Distributions isn't supported yet. check if apt is present
 if debian -- which apt >/dev/null 2>&1; then
