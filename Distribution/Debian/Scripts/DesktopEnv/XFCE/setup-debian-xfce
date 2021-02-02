@@ -1,124 +1,36 @@
-#!/data/data/com.termux/files/usr/bin/bash
-
-### A Mobilinux Component.
-### This will prepend all the functions needed for installation
-
-### Color Input Environment Variables
-RED="$(tput setaf 1)"
-GREEN="$(tput setaf 2)"
-YELLOW="$(tput setaf 3)"
-BLUE="$(tput setaf 4)"
-BOLD="$(tput bold)"
-NOATTR="$(tput sgr0)"
-
-set -e -u
-
-### Check if Network Connection is present
-if ping -c 1 8.8.8.8 >/dev/null 2>&1; then
-  true
+#!/bin/bash
+clear
+trap '' 2
+dialog --clear --backtitle "System Installation Type" --title "Choose Installation type:" --menu "Please select:" 10 45 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
+# OK is pressed
+if [ "$?" = "0" ]
+then
+        _return=$(cat temp)
+ 
+        # Minimal is selected
+        if [ "$_return" = "1" ]
+        then
+                echo 'Installing Minimal System '
+		sleep 4
+    		apt-get install xfce4 xfce4-terminal tigervnc-standalone-server xfe -y
+        fi
+ 
+         # Full is selected
+        if [ "$_return" = "2" ]
+        then
+            	echo 'Installing Full System '
+		sleep 4
+		apt-get install xfe xfce4 xfce4-terminal tigervnc-standalone-server xfce4-goodies gimp neofetch libreoffice task-xfce-desktop -y
+    		sudo apt update -y && sudo apt install wget -y && wget https://raw.githubusercontent.com/MobilinuxApp/Mobiconsole-CLI/master/Patches/librepatch.sh && bash librepatch.sh
+        fi
+ # Cancel is pressed
 else
-  echo "${RED}${BOLD}Cannot continue the installation. Please Check your network connection${NOATTR}"
-  exit 2
+        echo "Cancel is pressed, Restarting The Menu......"
+	sleep 3
+	dialog --menu "Choose Installation type:" 10 40 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
 fi
-
-### In case the script run inside the distribution. check for common hiarchery files
-if [ ! -e /usr/lib/.libdone.so.9 ]; then
-  true
-else
-  echo "${RED}${BOLD}We detected that you are running it inside the distro: incorrect syntax${NOATTR}"
-  exit 2
-fi
-
-if [ ! -e /usr/ ]; then
-  true
-else
-  echo "${RED}${BOLD}We detected that you are running it inside the distro: incorrect syntax${NOATTR}"
-  exit 2
-fi
-
-### At this point check for curl command. if not installed. ask a user to install it then abort
-if which curl >/dev/null 2>&1; then
-  true
-else
-  echo "${RED}${BOLD}Cannot find command 'curl'. Please install it by typing 'pkg in curl'${NOATTR}"
-  exit 2
-fi
-
-### Next is to check if debian.deb is installed
-if which debian >/dev/null 2>&1; then
-  true
-else
-  echo "${RED}${BOLD}Cannot find configuration files. Please uninstall and install again.${NOATTR}"
-  exit 2
-fi
-
-### Install XFCE
-install_xfce() {
-  if ! debian -- which startxfce4 >/dev/null 2>&1; then
-    dialog --clear --backtitle "System Installation Type" --title "Choose Installation type:" --menu "Please select:" 10 45 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
-    # OK is pressed
-    if [ "$?" = "0" ]; then
-      _return=$(cat temp)
-
-      # Minimal is selected
-      if [ "$_return" = "1" ]; then
-        echo "${GREEN}${BOLD}Installing Minimal Desktop Environment...${NOATTR}"
-        sleep 4
-        debian -- sudo apt-get install xfce4 xfce4-terminal -yy
-        dpkg --configure -a
-      fi
-
-      # Full is selected
-      if [ "$_return" = "2" ]; then
-        echo "${GREEN}${BOLD}Installing Full Desktop Environment...${NOATTR}"
-        sleep 4
-        debian -- sudo apt-get install xfe xfce4 xfce4-terminal xfce4-goodies gimp neofetch libreoffice task-xfce-desktop -yy
-        dpkg --configure -a
-      fi
-      # Cancel is pressed
-    else
-      echo "${GREEN}${BOLD}Cancel is pressed, Restarting The Menu.....${NOATTR}"
-      sleep 3
-      dialog --menu "Choose Installation type:" 10 40 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
-    fi
-    # remove the temp file
-    rm -f temp
-    setup_tigervnc
-  else
-    echo "Found xfce package. Skipping Install and Performing an autoconfiguration to tigervnc"
-    setup_tigervnc
-  fi
-}
-
-setup_tigervnc() {
-  if ! debian -- which tigervncserver >/dev/null 2>&1; then
-    echo "Installing tigervnc package"
-    debian -- sudo apt install tigervnc-standalone-server -yy
-    perform_config
-  else
-    echo "Found tigervnc package. Skipping Install and Performing an final autoconfiguration"
-    perform_config
-  fi
-}
-
-perform_config() {
-  echo ""
-  echo "Downloading the wrapper script..."
-  echo ""
-  rm -rf $PREFIX/bin/startxfce-debian
-  wget --tries=20 https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Debian/Scripts/DesktopEnv/XFCE/bin/startxfce-debian -O $PREFIX/bin/startxfce-debian
-  chmod 777 $PREFIX/bin/startxfce-debian
-  echo ""
-  echo "Finalizing..."
-  finalize
-}
-
-finalize() {
-  echo "XFCE successfully installed. All has gone well"
-  echo "To start xfce type:"
-  echo ""
-  echo "startxfce-debian"
-  echo ""
-  exit 0
-}
-install_xfce
+ 
+# remove the temp file
+rm -f temp
+trap 2
+apt-get clean
