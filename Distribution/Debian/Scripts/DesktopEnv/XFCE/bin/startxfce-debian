@@ -45,7 +45,7 @@ if which pulseaudio >/dev/null 2>&1; then
   pulseaudio --start --exit-idle-time=-1 > /dev/null 2>&1 || true
   pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1 > /dev/null 2>&1 || true
 else
-  echo "PulseAudio isn't installed. guess you're using the old version of DebDroid" > $PREFIX/tmp/stderr-pulse.log 2>&1
+  echo "PulseAudio isn't installed. guess you're using the old version of debian" > $PREFIX/tmp/stderr-pulse.log 2>&1
 fi
 
 ### Start the VNC Server
