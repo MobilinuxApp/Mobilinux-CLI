@@ -33,7 +33,6 @@ if which curl >/dev/null 2>&1; then
     true
 else
     echo "Cannot find command 'curl'. Please install it by typing 'pkg in curl'"
-    pkg install curl
     exit 2
 fi
 
