@@ -12,7 +12,7 @@ then
         then
                 echo 'Installing Minimal System '
 		sleep 4
-    		apt-get install xfce4 xfce4-terminal tigervnc-standalone-server xfe -y
+    		apt-get install xfce4 xfce4-terminal tigervnc-standalone-server -y
         fi
  
          # Full is selected
@@ -21,7 +21,6 @@ then
             	echo 'Installing Full System '
 		sleep 4
 		apt-get install xfe xfce4 xfce4-terminal tigervnc-standalone-server xfce4-goodies gimp neofetch libreoffice task-xfce-desktop -y
-    		sudo apt update -y && sudo apt install wget -y && wget https://raw.githubusercontent.com/MobilinuxApp/Mobiconsole-CLI/master/Patches/librepatch.sh && bash librepatch.sh
         fi
  # Cancel is pressed
 else
