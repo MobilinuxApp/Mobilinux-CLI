@@ -1,0 +1,68 @@
+#!/data/data/com.termux/files/usr/bin/bash
+### A shortcut to start lxde
+
+VNCRESOLUTION="userinputresolution"
+
+### Check if Debian is installed
+if debian -- true >/dev/null 2>&1; then
+  true
+else
+  echo "It seems Debian isn't installed. Please Install it"
+  exit 2
+fi
+
+### Check if LXDE is installed
+if debian -- which startlxde >/dev/null 2>&1; then
+  true
+else
+  echo "LXDE Isn't Installed. Please install it"
+  exit 2
+fi
+
+### Check if TigerVNC is installed
+if debian -- which tigervncserver >/dev/null 2>&1; then
+    true
+else
+    echo "TigerVNC isn't installed. Please Install it"
+    exit 2
+fi
+
+### Check for Socket and Lock Files
+if [ ! -S $PREFIX/tmp/.X11-unix/X51 ]; then
+    true
+else
+    echo "Another Instance of VNC Server running at port 5951. Please Close it"
+    exit 2
+fi
+
+if [ ! -e $PREFIX/tmp/.X51-lock ]; then
+    true
+else
+    echo "Another Instance of VNC Server running at port 5951. Please Close it"
+    exit 2
+fi
+
+### If PulseAudio is installed. then use it. nullify some errors
+if which pulseaudio >/dev/null 2>&1; then
+  pulseaudio --start --exit-idle-time=-1 > /dev/null 2>&1 || true
+  pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1 > /dev/null 2>&1 || true
+else
+  echo "PulseAudio isn't installed. guess you're using the old version of Debian" > $PREFIX/tmp/stderr-pulse.log 2>&1
+fi
+
+### Start the VNC Server
+termux-open vnc://localhost:5951 || true
+echo ""
+echo "Running in the foreground. to terminate it hit Ctrl-C"
+echo "However the safest option is to log-out from the Menu"
+echo ""
+debian -- env PULSE_SERVER=127.0.0.1 vncserver -geometry $VNCRESOLUTION -depth 24 -SecurityTypes none -xstartup /usr/bin/startlxde -fg -autokill -localhost no --I-KNOW-THIS-IS-INSECURE :51 || true
+
+
+sleep 1
+### Kill Pulseaudio Server. But check if debdroid instances is running
+if pidof -xs debian >/dev/null 2>&1; then
+  echo "Another instance of Debian is running. refusing to kill PulseAudio" > $PREFIX/tmp/stderr-pulse.log 2>&1
+else
+  pulseaudio -k >/dev/null 2>&1 || true
+fi
