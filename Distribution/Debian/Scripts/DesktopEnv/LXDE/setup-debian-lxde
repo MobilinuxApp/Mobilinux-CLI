@@ -1,3 +1,4 @@
+#!/bin/bash
 clear
 trap '' 2
 dialog --clear --backtitle "System Installation Type" --title "Choose Installation type:" --menu "Please select:" 10 45 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
