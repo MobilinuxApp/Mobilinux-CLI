@@ -10,17 +10,19 @@ then
         # Minimal is selected
         if [ "$_return" = "1" ]
         then
-        	echo 'Installing Minimal System '
-		      sleep 4
-    		  apt-get install mate-desktop-environment-core mate-terminal tightvncserver -y
+      		echo 'Installing Minimal System '
+	  	sleep 4
+    		apt-get install mate-desktop-environment-core mate-terminal tightvncserver -y
+		dpkg --configure -a
         fi
  
          # Full is selected
         if [ "$_return" = "2" ]
         then
              echo 'Installing Full System '
-	           sleep 4
+	     sleep 4
              apt-get install mate-desktop-environment-core mate-terminal tightvncserver xfe gimp neofetch libreoffice task-mate-desktop -y
+	     dpkg --configure -a
         fi
  # Cancel is pressed
 else
