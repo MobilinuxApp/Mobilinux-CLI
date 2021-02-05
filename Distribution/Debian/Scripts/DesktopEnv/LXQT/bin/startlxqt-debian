@@ -1,6 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 ### A shortcut to start lxqt
 
+VNCRESOLUTION="userinputresolution"
+
 ### Check if Debian is installed
 if debian -- true >/dev/null 2>&1; then
   true
@@ -53,7 +55,7 @@ echo ""
 echo "Running in the foreground. to terminate it hit Ctrl-C"
 echo "However the safest option is to log-out from the Menu"
 echo ""
-debian -- env PULSE_SERVER=127.0.0.1 vncserver -SecurityTypes none -xstartup /usr/bin/startlxqt -fg -autokill -localhost no --I-KNOW-THIS-IS-INSECURE :51 || true
+debian -- env PULSE_SERVER=127.0.0.1 vncserver -geometry $VNCRESOLUTION -depth 24 -SecurityTypes none -xstartup /usr/bin/startlxqt -fg -autokill -localhost no --I-KNOW-THIS-IS-INSECURE :51 || true
 
 sleep 1
 ### Kill Pulseaudio Server. But check if debian instances is running
