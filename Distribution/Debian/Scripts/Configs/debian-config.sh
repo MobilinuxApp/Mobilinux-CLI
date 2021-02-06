@@ -41,6 +41,8 @@ echo "export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/games:/usr/bin:/usr/
 echo "export LANG=C.UTF-8" >/etc/profile.d/debian-lang.sh
 echo "export PULSE_SERVER=127.0.0.1" >/etc/profile.d/debian-pulseserver.sh
 echo "export MOZ_FAKE_NO_SANDBOX=1" >/etc/profile.d/debian-firefox-fix.sh
+echo "export MOZ_DISABLE_GMP_SANDBOX=1" >> /etc/profile.d/debian-firefox-fix.sh
+echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile.d/debian-firefox-fix.sh
 echo "$(cat /.proot.distinfo)" >/etc/debian_chroot
 
 ## Configure Packages
@@ -61,6 +63,10 @@ echo ""
 echo "${GREEN}${BOLD}Adding the user to sudoers for sudo access....${NOATTR}"
 echo "$USERNAME ALL=(ALL:ALL) NOPASSWD:ALL" >/etc/sudoers.d/$USERNAME
 echo "$USERNAME" >/etc/userinfo.rc
+
+install-none(){
+   echo "${GREEN}${BOLD}No Desktop Environment will be installed....${NOATTR}"
+}
 
 install-xfce4() {
   clear
@@ -104,6 +110,10 @@ install-ssh() {
   echo ""
   echo "The Open Server will be started at 127.0.0.1:22"
 }
+
+if [ "$DESKTOPENV" == "None" ]; then
+  install-none
+fi
 
 if [ "$DESKTOPENV" == "XFCE" ]; then
   install-xfce4
