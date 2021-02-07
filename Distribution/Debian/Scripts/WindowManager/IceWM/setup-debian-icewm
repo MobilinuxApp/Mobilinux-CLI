@@ -1,0 +1,31 @@
+#!/bin/bash
+clear
+dialog --clear --backtitle "Debian ICEWM Installation" --title "Choose Installation type:" --menu "Please select:" 10 45 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
+# OK is pressed
+if [ "$?" = "0" ]; then
+  _return=$(cat temp)
+
+  # Minimal is selected
+  if [ "$_return" = "1" ]; then
+    echo 'Installing Minimal System '
+    sleep 4
+    apt-get install icewm xorg tightvncserver firefox-esr xfe -y
+  fi
+
+  # Full is selected
+  if [ "$_return" = "2" ]; then
+    echo 'Installing Full System '
+    sleep 4
+    apt-get install xfe icewm tightvncserver firefox-esr gimp neofetch libreoffice lightdm libreoffice-gtk synaptic vlc xdg-utils xorg xserver-xorg-input-all xserver-xorg-video-all -y
+  fi
+  # Cancel is pressed
+else
+  echo "Cancel is pressed, Restarting The Menu......"
+  sleep 3
+  dialog --menu "Choose Installation type:" 10 40 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
+fi
+
+# remove the temp file
+rm -f temp
+trap 2
+apt-get clean
