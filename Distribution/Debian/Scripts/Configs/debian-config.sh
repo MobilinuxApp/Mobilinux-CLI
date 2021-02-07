@@ -41,8 +41,8 @@ echo "export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/games:/usr/bin:/usr/
 echo "export LANG=C.UTF-8" >/etc/profile.d/debian-lang.sh
 echo "export PULSE_SERVER=127.0.0.1" >/etc/profile.d/debian-pulseserver.sh
 echo "export MOZ_FAKE_NO_SANDBOX=1" >/etc/profile.d/debian-firefox-fix.sh
-echo "export MOZ_DISABLE_GMP_SANDBOX=1" >> /etc/profile.d/debian-firefox-fix.sh
-echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >> /etc/profile.d/debian-firefox-fix.sh
+echo "export MOZ_DISABLE_GMP_SANDBOX=1" >>/etc/profile.d/debian-firefox-fix.sh
+echo "export MOZ_DISABLE_CONTENT_SANDBOX=1" >>/etc/profile.d/debian-firefox-fix.sh
 echo "$(cat /.proot.distinfo)" >/etc/debian_chroot
 
 ## Configure Packages
@@ -64,8 +64,8 @@ echo "${GREEN}${BOLD}Adding the user to sudoers for sudo access....${NOATTR}"
 echo "$USERNAME ALL=(ALL:ALL) NOPASSWD:ALL" >/etc/sudoers.d/$USERNAME
 echo "$USERNAME" >/etc/userinfo.rc
 
-install-none(){
-   echo "${GREEN}${BOLD}No Desktop Environment will be installed....${NOATTR}"
+install-none() {
+  echo "${GREEN}${BOLD}No Desktop Environment will be installed....${NOATTR}"
 }
 
 install-xfce4() {
@@ -100,6 +100,30 @@ install-mate() {
   bash setup-debian-mate
 }
 
+install-awesome() {
+  clear
+  echo "${GREEN}${BOLD}Installing Awesome Window Manager....${NOATTR}"
+  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Debian/Scripts/WindowManager/Awesome/setup-debian-awesome
+  chmod +x setup-debian-awesome
+  bash setup-debian-awesome
+}
+
+install-icewm() {
+  clear
+  echo "${GREEN}${BOLD}Installing Ice Window Manager....${NOATTR}"
+  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Debian/Scripts/WindowManager/IceWM/setup-debian-icewm
+  chmod +x setup-debian-icewm
+  bash setup-debian-icewm
+}
+
+install-i3wm() {
+  clear
+  echo "${GREEN}${BOLD}Installing i3 Window Manager....${NOATTR}"
+  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Debian/Scripts/WindowManager/i3/setup-debian-i3wm
+  chmod +x setup-debian-i3wm
+  bash setup-debian-i3wm
+}
+
 install-ssh() {
   echo ""
   echo "Installing SSH server...."
@@ -129,6 +153,18 @@ fi
 
 if [ "$DESKTOPENV" == "MATE" ]; then
   install-mate
+fi
+
+if [ "$DESKTOPENV" == "AwesomeWM" ]; then
+  install-awesome
+fi
+
+if [ "$DESKTOPENV" == "ICEWM" ]; then
+  install-icewm
+fi
+
+if [ "$DESKTOPENV" == "i3WM" ]; then
+  install-i3wm
 fi
 
 if [ "$SSH_STATUS" == "SSH" ]; then
