@@ -28,7 +28,7 @@ else
 fi
 
 ### Check if TigerVNC is installed
-if debian -- which tigervncserver >/dev/null 2>&1; then
+if debian -- which tightvncserver >/dev/null 2>&1; then
     true
 else
     echo "TigerVNC isn't installed. Please Install it"
