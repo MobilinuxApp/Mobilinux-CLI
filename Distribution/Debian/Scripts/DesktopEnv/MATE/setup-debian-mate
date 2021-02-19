@@ -2,11 +2,6 @@
 clear
 trap '' 2
 dialog --clear --backtitle "Debian MATE Installation Type" --title "Choose Installation type:" --menu "Please select:" 10 45 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
-install-chromium() {
-apt-get chromium -yy
-sed -i 's/chromium %U/chromium --no-sandbox %U/g' /usr/share/applications/chromium.desktop
-}
-
 # OK is pressed
 if [ "$?" = "0" ]
 then
@@ -19,12 +14,8 @@ then
 	  	sleep 4
     		apt-get install mate-desktop-environment-core mate-terminal tightvncserver -y
 		dpkg --configure -a
-		read -p "What to install chromium browser ? (y/n) [ Chromium might not work on arm/arm32/armhf devices ] " choice
-		case "$choice" in 
-		  y|Y ) install-chromium ;;
-		  n|N ) echo "Ok... Not installing Chromium";;
-		  * ) echo "invalid";;
-		esac
+		apt-get chromium -yy
+		sed -i 's/chromium %U/chromium --no-sandbox %U/g' /usr/share/applications/chromium.desktop
         fi
  
          # Full is selected
@@ -34,6 +25,8 @@ then
 	     sleep 4
              apt-get install mate-desktop-environment-core mate-terminal tightvncserver xfe gimp neofetch libreoffice task-mate-desktop -y
 	     dpkg --configure -a
+	     apt-get chromium -yy
+		sed -i 's/chromium %U/chromium --no-sandbox %U/g' /usr/share/applications/chromium.desktop
         fi
  # Cancel is pressed
 else
