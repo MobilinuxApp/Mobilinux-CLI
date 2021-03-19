@@ -1,1 +1,1 @@
-This Section contains binaries for installing Debian on android.
+This Section contains binaries for installing Ubuntu on android.
