@@ -1,0 +1,37 @@
+#!/bin/bash
+clear
+trap '' 2
+dialog --clear --backtitle "Ubuntu XFCE Installation" --title "Choose Installation type:" --menu "Please select:" 10 45 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
+# OK is pressed
+if [ "$?" = "0" ]
+then
+        _return=$(cat temp)
+ 
+        # Minimal is selected
+        if [ "$_return" = "1" ]
+        then
+                echo 'Installing Minimal System '
+		sleep 4
+    		apt-get install xfce4 xfce4-terminal tigervnc-standalone-server -y
+		dpkg --configure -a
+        fi
+ 
+         # Full is selected
+        if [ "$_return" = "2" ]
+        then
+            	echo 'Installing Full System '
+		sleep 4
+		apt-get install xfe xfce4 xfce4-terminal tigervnc-standalone-server xfce4-goodies gimp neofetch libreoffice xubuntu-desktop -y
+		dpkg --configure -a
+        fi
+ # Cancel is pressed
+else
+        echo "Cancel is pressed, Restarting The Menu......"
+	sleep 3
+	dialog --menu "Choose Installation type:" 10 40 3 1 "Minimal Installation 1.5GB" 2 "Full Installation 4GB" 2>temp
+fi
+ 
+# remove the temp file
+rm -f temp
+trap 2
+apt-get clean
