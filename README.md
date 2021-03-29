@@ -27,20 +27,20 @@ You don't have to worry about multi-booting your system which means you can have
 
 
 # What OS are supported?
-Mobilinux currently supports following OS at the moment.
-### Standard Distros
-1. Ubuntu
-2. Debian
-3. Manjaro
-4. Fedora
-5. Kali
-6. Void
-7. Alpine
-8. Arch
-9. BackboxOS
-10. CentOS
-11. ParrotOS
-12. OpenSUSE
+Mobilinux currently supports following Linux Distros:
+
+1. Alpine
+2. Arch
+3. BackboxOS
+4. CentOS
+5. Debian 
+6. Fedora 
+7. Kali
+8. Manjaro
+9. OpenSUSE
+10. ParrotOS
+11. Ubuntu
+12. Void
 
 ### Desktop Environment
 1. LXDE
@@ -48,12 +48,17 @@ Mobilinux currently supports following OS at the moment.
 3. XFCE
 4. MATE
 
+### Window Managers
+1. ICWEM
+2. i3 WM
+3. Awesome WM
+
 # Are we open-source? 
 
 
-Yes but no. Mobilinux is partially open-source. All the free distro tar files and the shell scripts are available on our [GitHub repository](https://github.com/MobilinuxApp/Mobiconsole-CLI/). While the actual Android app and all the files concerning Mobilinux are close-source for obvious reasons.
+Yes but no. Mobilinux is partially open-source. All the free distro tar files and the shell scripts are available on our [GitHub repository](https://github.com/MobilinuxApp/Mobilinux-CLI/). While the actual Android app and all the files concerning Mobilinux are close-source for obvious reasons.
 
-That doesn't mean that we don't love open-source, **we** like **open-source**.
+That doesn't mean that we don't like open-source, **we** love **open-source**.
 
 <br>
 
@@ -62,8 +67,8 @@ That doesn't mean that we don't love open-source, **we** like **open-source**.
 <br>
 
 <p align="center">
-<img src="https://github.com/MobilinuxApp/Mobiconsole-CLI/blob/master/Assets/fedora.png" width="400" >
-<img src="https://github.com/MobilinuxApp/Mobiconsole-CLI/blob/master/Assets/screenshot11.png" width="400" >
+<img src="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/Assets/fedora.png" width="400" >
+<img src="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/Assets/screenshot11.png" width="400" >
 <img src="https://raw.githubusercontent.com/imprakharshukla/Readme-Resources/master/example/example3.png" width="400" >
 <img src="https://raw.githubusercontent.com/imprakharshukla/Readme-Resources/master/example/example4.png" width="400" >
 </p>
