@@ -6,6 +6,7 @@
   <a href="https://sourceforge.net/p/mobilinuxapp/discussion/"><img src="https://img.shields.io/badge/Questions%3F-Join%20our%20forum-blue?style=flat-square"></a>
   <a href="https://mobilinux.weebly.com/"><img src="https://img.shields.io/badge/website-Visit%20Our%20Website-blue"></a>
   <a href="https://github.com/MobilinuxApp/Mobiconsole-CLI"><img src="https://img.shields.io/badge/Download-GitHub%20Releases-orange?style=flat-square&logo=github"></a>
+  <a href="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/"></a>
  
  <br>
   <h3 align="center">Made with 💝 for <img src="https://raw.githubusercontent.com/anythingcodes/slack-emoji-for-techies/gh-pages/emoji/tux.png" align="bottom" width="24"/></h3>
