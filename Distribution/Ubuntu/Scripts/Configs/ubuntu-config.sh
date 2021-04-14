@@ -35,7 +35,7 @@ apt clean || true
 
 # Update command-not-found database
 echo "${GREEN}I: Populating ${YELLOW}command-not-found${GREEN} Database${NOATTR}"
-update-command-not-found
+#update-command-not-found
 apt update
 
 ## Setup Environment Variables
