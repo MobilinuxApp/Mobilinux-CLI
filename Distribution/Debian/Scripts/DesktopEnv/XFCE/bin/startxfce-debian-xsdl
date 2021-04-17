@@ -18,4 +18,5 @@ else
 fi
 
 debian -- env DISPLAY=127.0.0.1:0 PULSE_SERVER=tcp:127.0.0.1:4713
+sleep 1
 debian -- /usr/bin/startxfce4 &
