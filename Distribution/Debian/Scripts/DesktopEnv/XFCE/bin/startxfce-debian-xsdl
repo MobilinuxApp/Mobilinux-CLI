@@ -1,0 +1,21 @@
+#!/data/data/com.termux/files/usr/bin/bash
+### A shortcut to start startxfce
+
+### Check if Debian is installed
+if debian -- true >/dev/null 2>&1; then
+  true
+else
+  echo "It seems Debian isn't installed. Please Install it"
+  exit 2
+fi
+
+### Check if XFCE is installed
+if debian -- which startxfce4 >/dev/null 2>&1; then
+  true
+else
+  echo "XFCE Isn't Installed. Please install it"
+  exit 2
+fi
+
+debian -- env DISPLAY=127.0.0.1:0 PULSE_SERVER=tcp:127.0.0.1:4713
+debian -- /usr/bin/startxfce4 &
