@@ -1,0 +1,22 @@
+#!/data/data/com.termux/files/usr/bin/bash
+### A shortcut to start lxde
+
+### Check if Ubuntu is installed
+if ubuntu -- true >/dev/null 2>&1; then
+  true
+else
+  echo "It seems Ubuntu isn't installed. Please Install it"
+  exit 2
+fi
+
+### Check if MATE is installed
+if ubuntu -- which mate-session >/dev/null 2>&1; then
+  true
+else
+  echo "MATE Isn't Installed. Please install it"
+  exit 2
+fi
+
+ubuntu -- env DISPLAY=127.0.0.1:0 PULSE_SERVER=tcp:127.0.0.1:4713
+sleep 1
+ubuntu -- /usr/bin/mate-session &
