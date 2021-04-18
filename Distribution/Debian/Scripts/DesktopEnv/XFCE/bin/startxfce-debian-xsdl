@@ -16,7 +16,7 @@ else
   echo "XFCE Isn't Installed. Please install it"
   exit 2
 fi
-
-debian -- export DISPLAY=127.0.0.1:0 export PULSE_SERVER=tcp:127.0.0.1:4713
 sleep 6
-debian -- /usr/bin/startxfce4 &
+debian -- export DISPLAY=127.0.0.1:0 
+debian -- export PULSE_SERVER=tcp:127.0.0.1:4713
+debian -- startxfce4 &
