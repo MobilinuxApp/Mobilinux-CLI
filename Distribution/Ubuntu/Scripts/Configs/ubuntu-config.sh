@@ -17,24 +17,27 @@ NOATTR="$(tput sgr0)"
 set -e -u
 
 ## Add 'contrib non-free' componenets
-sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list >/dev/null 2>&1 || true
+#sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list >/dev/null 2>&1 || true
 
 ## Delete Docker Related files as if they're not essential and may cause problems
 rm -rf /etc/apt/apt.conf.d/docker-* >/dev/null 2>&1 || true
 
 ## Install Packages and Fix segfaults as well
 echo "${GREEN}${BOLD}Installing Base Packages....${NOATTR}"
-apt update
-apt upgrade -y || true
+
+echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries #Setting APT retry count
+rm -rf /etc/resolv.conf
+echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
+apt-get update && apt-get upgrade -y || true
 apt install -f -y || true
-apt install nano sudo busybox udisks2 dbus-x11 locales pulseaudio procps tzdata dialog wget curl debianutils command-not-found --no-install-recommends --no-install-suggests -y || true
+apt update -y && apt install nano sudo busybox udisks2 dbus-x11 locales pulseaudio procps tzdata dialog wget curl debianutils -y || true
 apt install -f -y || true
 dpkg --configure -a || true
 apt autoremove -y || true
 apt clean || true
 
 # Update command-not-found database
-echo "${GREEN}I: Populating ${YELLOW}command-not-found${GREEN} Database${NOATTR}"
+#echo "${GREEN}I: Populating ${YELLOW}command-not-found${GREEN} Database${NOATTR}"
 #update-command-not-found
 apt update
 
@@ -105,6 +108,30 @@ install-mate() {
   bash setup-ubuntu-mate
 }
 
+install-awesome() {
+  clear
+  echo "${GREEN}${BOLD}Installing Awesome Window Manager....${NOATTR}"
+  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/Awesome/setup-ubuntu-awesome
+  chmod +x setup-ubuntu-awesome
+  bash setup-ubuntu-awesome
+}
+
+install-icewm() {
+  clear
+  echo "${GREEN}${BOLD}Installing Ice Window Manager....${NOATTR}"
+  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/IceWM/setup-ubuntu-icewm
+  chmod +x setup-ubuntu-icewm
+  bash setup-ubuntu-icewm
+}
+
+install-i3wm() {
+  clear
+  echo "${GREEN}${BOLD}Installing i3 Window Manager....${NOATTR}"
+  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/i3/setup-ubuntu-i3wm
+  chmod +x setup-ubuntu-i3wm
+  bash setup-ubuntu-i3wm
+}
+
 install-ssh() {
   echo ""
   echo "Installing SSH server...."
@@ -134,6 +161,18 @@ fi
 
 if [ "$DESKTOPENV" == "MATE" ]; then
   install-mate
+fi
+
+if [ "$DESKTOPENV" == "AwesomeWM" ]; then
+  install-awesome
+fi
+
+if [ "$DESKTOPENV" == "ICEWM" ]; then
+  install-icewm
+fi
+
+if [ "$DESKTOPENV" == "i3WM" ]; then
+  install-i3wm
 fi
 
 if [ "$SSH_STATUS" == "SSH" ]; then
