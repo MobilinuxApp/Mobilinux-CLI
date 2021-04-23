@@ -29,9 +29,8 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries #Setting AP
 rm -rf /etc/resolv.conf
 echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
 apt-get update && apt-get upgrade -y || true
-dpkg --configure -a || true
 apt install -f -y || true
-apt update -y && apt install dialog wget curl sudo debianutils -y || true
+apt install udisks2 dialog wget curl sudo debianutils tzdata locales -y || true
 apt install -f -y || true
 dpkg --configure -a || true
 apt autoremove -y || true
@@ -40,7 +39,6 @@ apt clean || true
 # Update command-not-found database
 #echo "${GREEN}I: Populating ${YELLOW}command-not-found${GREEN} Database${NOATTR}"
 #update-command-not-found
-apt update
 
 ## Setup Environment Variables
 echo ""
@@ -57,7 +55,6 @@ echo "$(cat /.proot.distinfo)" >/etc/ubuntu_chroot
 ## Configure Packages
 echo ""
 echo "${GREEN}${BOLD}Configuring Packages....${NOATTR}"
-apt install udisks2 busybox 
 echo "" >/var/lib/dpkg/info/udisks2.postinst
 echo "" >/var/lib/dpkg/info/dbus.postinst
 dpkg --configure -a
