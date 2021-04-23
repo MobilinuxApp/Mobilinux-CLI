@@ -29,8 +29,9 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries #Setting AP
 rm -rf /etc/resolv.conf
 echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
 apt-get update && apt-get upgrade -y || true
+dpkg --configure -a || true
 apt install -f -y || true
-apt update -y && apt install nano sudo busybox udisks2 dbus-x11 locales pulseaudio procps tzdata dialog wget curl debianutils -y || true
+apt update -y && apt install dialog wget curl sudo debianutils -y || true
 apt install -f -y || true
 dpkg --configure -a || true
 apt autoremove -y || true
@@ -56,6 +57,7 @@ echo "$(cat /.proot.distinfo)" >/etc/ubuntu_chroot
 ## Configure Packages
 echo ""
 echo "${GREEN}${BOLD}Configuring Packages....${NOATTR}"
+apt install udisks2 busybox 
 echo "" >/var/lib/dpkg/info/udisks2.postinst
 echo "" >/var/lib/dpkg/info/dbus.postinst
 dpkg --configure -a
