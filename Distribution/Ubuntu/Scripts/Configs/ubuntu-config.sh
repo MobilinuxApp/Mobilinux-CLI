@@ -24,13 +24,9 @@ rm -rf /etc/apt/apt.conf.d/docker-* >/dev/null 2>&1 || true
 
 ## Install Packages and Fix segfaults as well
 echo "${GREEN}${BOLD}Installing Base Packages....${NOATTR}"
-
-echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries #Setting APT retry count
-rm -rf /etc/resolv.conf
-echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
 apt-get update && apt-get upgrade -y || true
 apt install -f -y || true
-apt install udisks2 dialog wget curl sudo debianutils tzdata locales -y || true
+apt install nano sudo busybox udisks2 dbus-x11 locales pulseaudio procps tzdata dialog wget curl debianutils --no-install-recommends --no-install-suggests -y || true
 apt install -f -y || true
 dpkg --configure -a || true
 apt autoremove -y || true
@@ -65,6 +61,7 @@ dpkg-reconfigure tzdata || true
 USERNAME="demousername" PASSWORD="demopasswd" DESKTOPENV="desktopenv" SSH_STATUS="demostatus"
 echo "${GREEN}${BOLD}Configuring User Accounts....${NOATTR}"
 useradd -m -p $PASSWORD -s /bin/bash $USERNAME
+usermod -a -G sudo $USERNAME
 echo $USERNAME:$PASSWORD | chpasswd
 echo ""
 echo "${GREEN}${BOLD}Adding the user to sudoers for sudo access....${NOATTR}"
@@ -78,7 +75,7 @@ install-none(){
 install-xfce4() {
   clear
   echo "${GREEN}${BOLD}Installing XFCE4....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/XFCE/setup-ubuntu-xfce
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/XFCE/setup-ubuntu-xfce
   chmod +x setup-ubuntu-xfce
   bash setup-ubuntu-xfce
 }
@@ -86,7 +83,7 @@ install-xfce4() {
 install-lxde() {
   clear
   echo "${GREEN}${BOLD}Installing LXDE....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/LXDE/setup-ubuntu-lxde
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/LXDE/setup-ubuntu-lxde
   chmod +x setup-ubuntu-lxde
   bash setup-ubuntu-lxde
 }
@@ -94,7 +91,7 @@ install-lxde() {
 install-lxqt() {
   clear
   echo "${GREEN}${BOLD}Installing LXQT....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/LXQT/setup-ubuntu-lxqt
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/LXQT/setup-ubuntu-lxqt
   chmod +x setup-ubuntu-lxqt
   bash setup-ubuntu-lxqt
 }
@@ -102,7 +99,7 @@ install-lxqt() {
 install-mate() {
   clear
   echo "${GREEN}${BOLD}Installing MATE....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/MATE/setup-ubuntu-mate
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/DesktopEnv/MATE/setup-ubuntu-mate
   chmod +x setup-ubuntu-mate
   bash setup-ubuntu-mate
 }
@@ -110,7 +107,7 @@ install-mate() {
 install-awesome() {
   clear
   echo "${GREEN}${BOLD}Installing Awesome Window Manager....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/Awesome/setup-ubuntu-awesome
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/Awesome/setup-ubuntu-awesome
   chmod +x setup-ubuntu-awesome
   bash setup-ubuntu-awesome
 }
@@ -118,7 +115,7 @@ install-awesome() {
 install-icewm() {
   clear
   echo "${GREEN}${BOLD}Installing Ice Window Manager....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/IceWM/setup-ubuntu-icewm
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/IceWM/setup-ubuntu-icewm
   chmod +x setup-ubuntu-icewm
   bash setup-ubuntu-icewm
 }
@@ -126,7 +123,7 @@ install-icewm() {
 install-i3wm() {
   clear
   echo "${GREEN}${BOLD}Installing i3 Window Manager....${NOATTR}"
-  wget --tries=20 --no-check-certificate https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/i3/setup-ubuntu-i3wm
+  curl -LJO https://raw.githubusercontent.com/MobilinuxApp/Mobilinux-CLI/master/Distribution/Ubuntu/Scripts/WindowManager/i3/setup-ubuntu-i3wm
   chmod +x setup-ubuntu-i3wm
   bash setup-ubuntu-i3wm
 }
