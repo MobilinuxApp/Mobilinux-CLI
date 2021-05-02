@@ -70,6 +70,6 @@ That doesn't mean that we don't like open-source, **we** love **open-source**.
 <p align="center">
 <img src="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/Assets/fedora.png" width="400" >
 <img src="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/Assets/screenshot11.png" width="400" >
-<img src="https://raw.githubusercontent.com/imprakharshukla/Readme-Resources/master/example/example3.png" width="400" >
-<img src="https://raw.githubusercontent.com/imprakharshukla/Readme-Resources/master/example/example4.png" width="400" >
+<img src="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/Assets/screenshot7.png" width="400" >
+<img src="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/Assets/screenshot8.png" width="400" >
 </p>
