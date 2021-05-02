@@ -26,7 +26,7 @@ rm -rf /etc/apt/apt.conf.d/docker-* >/dev/null 2>&1 || true
 echo "${GREEN}${BOLD}Installing Base Packages....${NOATTR}"
 apt-get update && apt-get upgrade -y || true
 apt install -f -y || true
-apt install nano sudo busybox udisks2 dbus-x11 locales pulseaudio procps tzdata dialog wget curl debianutils --no-install-recommends --no-install-suggests -y || true
+apt install nano sudo busybox udisks2 dbus-x11 locales pulseaudio procps tzdata dialog wget curl debianutils ca-certificates --no-install-recommends --no-install-suggests -y || true
 apt install -f -y || true
 dpkg --configure -a || true
 apt autoremove -y || true
