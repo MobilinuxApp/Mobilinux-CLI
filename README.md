@@ -7,6 +7,8 @@
   <a href="https://mobilinux.weebly.com/"><img src="https://img.shields.io/badge/website-Visit%20Our%20Website-blue"></a>
   <a href="https://github.com/MobilinuxApp/Mobiconsole-CLI"><img src="https://img.shields.io/badge/Download-GitHub%20Releases-orange?style=flat-square&logo=github"></a>
   <a href="https://github.com/MobilinuxApp/Mobilinux-CLI/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+  <img alt="Dynamic JSON Badge" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fmobilinuxapp%2Ffiles%2Fstats%2Fjson%3Fstart_date%3D2019-11-26%26end_date%3D2023-10-01&query=%24.total&logo=sourceforge&logoColor=%23FF6600&label=Downloads&link=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fmobilinuxapp%2F">
+
  
  <br>
   <h3 align="center">Made with 💝 for <img src="https://raw.githubusercontent.com/anythingcodes/slack-emoji-for-techies/gh-pages/emoji/tux.png" align="bottom" width="24"/></h3>
